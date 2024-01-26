@@ -12,15 +12,12 @@ import FooterComponent from '../Footer';
 import '../../css/product.css';
 
 const ProductPage = () => {
-  const router = useRouter();
   const getQueryParameters = useSearchParams();
 
   const id = getQueryParameters.get("id");
   const name = getQueryParameters.get("name");
   const price = getQueryParameters.get("price");
   const imageUrl = getQueryParameters.get("imageUrl") ? decodeURIComponent(getQueryParameters.get("imageUrl")).split(',') : [];
-
-  console.log(imageUrl)
 
   return (
     <div>
