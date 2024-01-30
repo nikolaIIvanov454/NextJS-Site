@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react';
+import { useEffect, useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
@@ -12,12 +13,39 @@ import FooterComponent from '../Footer';
 import '../../css/product.css';
 
 const ProductPage = () => {
-  const getQueryParameters = useSearchParams();
+  const id = useSearchParams().get("id");
 
-  const id = getQueryParameters.get("id");
-  const name = getQueryParameters.get("name");
-  const price = getQueryParameters.get("price");
-  const imageUrl = getQueryParameters.get("imageUrl") ? decodeURIComponent(getQueryParameters.get("imageUrl")).split(',') : [];
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/get-products/by-id', 
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: id }),
+        });
+
+        if (!response.ok) {
+          console.error('Error fetching product:', response.statusText);
+          return;
+        }
+
+        const data = await response.json();
+      
+        setProduct(data.product);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const { name, price, imageUrl } = product;
 
   return (
     <div>
@@ -28,15 +56,17 @@ const ProductPage = () => {
           <p>Name: {name}</p>
           <p>Price: {price}</p>
         </div>
-     <div className="flex justify-start h-96 m-10 opacity-0 animate-appear transition-opacity duration-500 delay-300">
-      <Carousel className='w-1/2' slide={false}>
-        <img src={imageUrl[1]} alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
-        <img src={imageUrl[2]} alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
-        <img src={imageUrl[3]} alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
-      </Carousel>
-    </div>
+      <div className="flex justify-start h-96 m-10 opacity-0 animate-appear transition-opacity duration-500 delay-300">
+        <Carousel className='w-1/2' slide={false}>
+          {imageUrl ? (
+            imageUrl.map((url, index) => (
+              <img src={url} alt={`Image ${index}`} className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
+            ))
+          ) : (
+            <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
+          )}
+        </Carousel>
+      </div>
     <FooterComponent />
     </div>
   );

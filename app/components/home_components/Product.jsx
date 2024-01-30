@@ -3,13 +3,15 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 function Product({ product }) {
-  const { id, name, price, imageUrl } = product;
+  const { _id, name, price, imageUrl } = product;
   const router = useRouter(); 
 
   const encodedImageUrls = encodeURIComponent(imageUrl.join(','));
 
+  console.log(product)
+
   const handleProductClick = () => {
-    router.push(`/home/product?id=${id}&name=${name}&price=${price}&imageUrl=${encodedImageUrls}`);
+    router.push(`/home/product?id=${_id}`);
   };
 
   return (
