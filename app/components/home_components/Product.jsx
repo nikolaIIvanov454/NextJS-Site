@@ -6,10 +6,6 @@ function Product({ product }) {
   const { _id, name, price, imageUrl } = product;
   const router = useRouter(); 
 
-  const encodedImageUrls = encodeURIComponent(imageUrl.join(','));
-
-  console.log(product)
-
   const handleProductClick = () => {
     router.push(`/home/product?id=${_id}`);
   };

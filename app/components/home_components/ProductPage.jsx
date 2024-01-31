@@ -13,7 +13,7 @@ import FooterComponent from '../Footer';
 import '../../css/product.css';
 
 const ProductPage = () => {
-  const id = useSearchParams().get("id");
+  const _id = useSearchParams().get("id");
 
   const [product, setProduct] = useState({});
 
@@ -26,7 +26,7 @@ const ProductPage = () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ id: id }),
+          body: JSON.stringify({ id: _id }),
         });
 
         if (!response.ok) {
@@ -45,7 +45,7 @@ const ProductPage = () => {
     fetchData();
   }, []);
 
-  const { name, price, imageUrl } = product;
+  const { id, name, price, imageUrl } = product;
 
   return (
     <div>
@@ -60,7 +60,7 @@ const ProductPage = () => {
         <Carousel className='w-1/2' slide={false}>
           {imageUrl ? (
             imageUrl.map((url, index) => (
-              <img src={url} alt={`Image ${index}`} className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
+              <img key={index} src={url} alt={`Image ${index}`} className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />
             ))
           ) : (
             <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />

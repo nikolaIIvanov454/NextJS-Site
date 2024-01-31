@@ -2,12 +2,12 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 function NavbarComponent() {
-  const location = useRouter();
+  const location = usePathname();
 
   return (
     <Navbar fluid rounded>
@@ -35,10 +35,10 @@ function NavbarComponent() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="/home" className={`nav-link ${location.pathname === '/home' ? 'text-cyan-700' : ''}`}>Home</Navbar.Link>
-        <Navbar.Link href="/login" className={`nav-link ${location.pathname === '/login' ? 'text-cyan-700' : ''}`}>Login</Navbar.Link>
-        <Navbar.Link href="/register" className={`nav-link ${location.pathname === '/register' ? 'text-cyan-700' : ''}`}>Register</Navbar.Link>
-        <Navbar.Link href="/about-us" className={`nav-link ${location.pathname === '/about-us' ? 'text-cyan-700' : ''}`}>About Us</Navbar.Link>
+        <Navbar.Link href="/home" className={`nav-link ${location === '/home' ? 'text-cyan-700' : ''}`}>Home</Navbar.Link>
+        <Navbar.Link href="/login" className={`nav-link ${location === '/login' ? 'text-cyan-700' : ''}`}>Login</Navbar.Link>
+        <Navbar.Link href="/register" className={`nav-link ${location === '/register' ? 'text-cyan-700' : ''}`}>Register</Navbar.Link>
+        <Navbar.Link href="/about-us" className={`nav-link ${location === '/about-us' ? 'text-cyan-700' : ''}`}>About Us</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
