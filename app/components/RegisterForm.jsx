@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'
+
+import React, { useState } from 'react';
 
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
@@ -6,6 +8,32 @@ import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 
 function RegisterFormComponent() { 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const registerNewAccount = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/api/register/route', 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.error('API request failed');
+      }
+    } catch (error) {
+      console.error('Error during API request:', error);
+    }
+  };
 
   return (
     <div>
@@ -16,13 +44,13 @@ function RegisterFormComponent() {
           <div className="mb-2 block">
             <Label htmlFor="email2" value="Your email" />
           </div>
-          <TextInput id="email2" type="email" placeholder="name@flowbite.com" required shadow />
+          <TextInput id="email2" type="email" onChange={(event) => setEmail(event.target.value)} placeholder="name@flowbite.com" required shadow />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="password2" value="Your password" />
           </div>
-          <TextInput id="password2" type="password" required shadow />
+          <TextInput id="password2" onChange={(event) => setPassword(event.target.value)} type="password" required shadow />
         </div>
         <div>
           <div className="mb-2 block">
@@ -39,7 +67,7 @@ function RegisterFormComponent() {
             </a>
           </Label>
         </div>
-        <Button type="submit">Register new account</Button>
+        <Button onClick={registerNewAccount} type="submit">Register new account</Button>
       </form>
     </div>
 

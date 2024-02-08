@@ -2,7 +2,7 @@ import React from 'react';
 
 import RegisterFormComponent from '../components/RegisterForm';
 
-function LoginPage() {
+function RegisterPage() {
   return (
     <>
       <RegisterFormComponent />
@@ -10,4 +10,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default RegisterPage;
