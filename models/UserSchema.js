@@ -3,7 +3,7 @@ import mongoose, {Schema} from 'mongoose';
 const userSchema = new Schema(
     {
         id: Number,
-        username: String,
+        email: String,
         password: String,
         role: String,
     }, 
@@ -12,6 +12,7 @@ const userSchema = new Schema(
             createdAt: 'created_at', 
             updatedAt: 'updated_at' 
         },
+        versionKey: false
     }
 );
 

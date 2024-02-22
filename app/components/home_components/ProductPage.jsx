@@ -13,7 +13,7 @@ import FooterComponent from '../Footer';
 import '../../css/product.css';
 
 const ProductPage = () => {
-  const _id = useSearchParams().get("id");
+  const _id = useSearchParams().get('id');
 
   const [product, setProduct] = useState({});
 
@@ -26,7 +26,7 @@ const ProductPage = () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ id: _id }),
+          body: JSON.stringify({_id : _id})
         });
 
         if (!response.ok) {

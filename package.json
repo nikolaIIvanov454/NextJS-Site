@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "argon2": "^0.31.2",
     "dotenv": "^16.4.1",
     "flowbite-react": "^0.7.2",
     "mongodb": "^6.3.0",
