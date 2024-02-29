@@ -49,7 +49,7 @@ const ProductPage = () => {
 
   return (
     <div>
-    <NavbarComponent />
+    <NavbarComponent/>
     <h1>Product Page</h1>
         <div>
           <p>ID: {id}</p>
