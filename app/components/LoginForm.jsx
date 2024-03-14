@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
+import { signIn } from "next-auth/react"
+
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 
@@ -15,7 +17,7 @@ function LoginFormComponent() {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/auth/login', 
+      const response = await fetch('/api/login', 
       {
         method: 'POST',
         headers: {
@@ -25,8 +27,9 @@ function LoginFormComponent() {
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log(result);
+        const { message, token } = await response.json();
+        console.log(message);
+        console.log(token);
       } else {
         console.error('API request failed');
       }
@@ -57,6 +60,7 @@ function LoginFormComponent() {
             <Label htmlFor="remember">Remember me</Label>
           </div>
           <Button type="submit" onClick={login}>Submit</Button>
+          <Button onClick={signIn}>Login with Google</Button>
         </form>
       </div>
 
