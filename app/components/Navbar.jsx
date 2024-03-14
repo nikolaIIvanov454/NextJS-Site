@@ -4,14 +4,14 @@ import React from 'react';
 
 import { usePathname } from 'next/navigation';
 
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { useSession } from 'next-auth/react';
 
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 function NavbarComponent() {
   const location = usePathname();
 
-  const { user, error, isLoading } = useUser();
+  const { data } = useSession();
 
   return (
     <Navbar fluid rounded>
@@ -24,17 +24,21 @@ function NavbarComponent() {
           arrowIcon={false}
           inline
           label={
-            <Avatar alt="User settings" img={ user ? user.picture : "https://ui-avatars.com/api/?name=BassAddict" } rounded />
+            <Avatar alt="User settings" img={ data?.user ? data.user.image : "https://ui-avatars.com/api/?name=BassAddict" } rounded />
           }>
           <Dropdown.Header>
-            <span className="block text-sm">{ user ? user.nickname : "BassAddict" }</span>
-            <span className="block truncate text-sm font-medium">{ user ? user.email : "bass_addict@gmail.com" }</span>
+            <span className="block text-sm">{ data?.user ? data.user.name : "BassAddict" }</span>
+            <span className="block truncate text-sm font-medium">{ data?.user ? data.user.email : "bass_addict@gmail.com" }</span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Divider/>
-          <Dropdown.Item href="/api/auth/logout">Sign out</Dropdown.Item>
+          { data?.user ? 
+          <>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Item>Money</Dropdown.Item>
+            <Dropdown.Divider/>
+            <Dropdown.Item href="/api/auth/signout">Sign out</Dropdown.Item> 
+          </>
+          : ""}
         </Dropdown>
         <Navbar.Toggle />
       </div>
