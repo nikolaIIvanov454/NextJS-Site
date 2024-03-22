@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import HomeComponent from '../components/Home'
+import HomeComponent from '../components/Home';
 
 function page() {
-  return (
-    <HomeComponent/>
-  )
+  return <HomeComponent />;
 }
 
 export default page;

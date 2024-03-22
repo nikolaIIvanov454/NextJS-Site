@@ -1,35 +1,37 @@
 import { NextResponse } from 'next/server';
 
-import connectMongo from '../../../../libs/mongoConfig';
+import connectMongo from '../../../libs/mongoConfig';
 
-import User from '../../../../models/UserSchema';
+import User from '../../../models/UserSchema';
 
 import argon2 from 'argon2';
 
 export async function POST(req) {
-    const { email, password } = await req.json();
-    await connectMongo();
-w
-    const user = await User.findOne({ email: email });
+  const { email, password } = await req.json();
+  await connectMongo();
 
-    if(!user){
-        return NextResponse.json('Login is unsuccessful.', { status: 401 });
-    }else{
-        try {
-            const passwordMatch = await argon2.verify(user.password, password);
+  const user = await User.findOne({ email: email });
 
-            if (!passwordMatch) {
-                return NextResponse.json('Invalid password.', { status: 401 });
-            }
-        
-            const token = generateToken(user);
+  if (!user) {
+    return NextResponse.json('Login is unsuccessful.', { status: 401 });
+  } else {
+    try {
+      const passwordMatch = await argon2.verify(user.password, password);
 
-            console.log(token);
+      if (!passwordMatch) {
+        return NextResponse.json('Invalid password.', { status: 401 });
+      }
 
-            return NextResponse.json({ message: 'Login is successful.', token: token }, { status: 200 });
-        } catch (error) {
-            console.error('An error occured:', error);
-            return NextResponse.json('Server Error.', { status: 500 });
-        }
+      req.session.set('user', { email: email, password: password });
+      await req.session.save();
+
+      return NextResponse.json(
+        { message: 'Login is successful.', token: token },
+        { status: 200 }
+      );
+    } catch (error) {
+      console.error('An error occured:', error);
+      return NextResponse.json('Server Error.', { status: 500 });
     }
+  }
 }
