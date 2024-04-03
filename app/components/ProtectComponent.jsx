@@ -1,24 +1,23 @@
-import LoginPage from '../components/LoginForm';
+'use client';
+
 import { useSession } from 'next-auth/react';
-import { getServerSession } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 const withAuth = (WrappedComponent) => {
-  const Wrapper = async (props) => {
+  const Wrapper = (props) => {
     const router = useRouter();
-    const { session } = useSession();
-    // const defaultSession = await getServerSession();
+    const { status } = useSession();
 
     useEffect(() => {
-      router.replace('/login');
-    }, []);
+      if (status === 'authenticated') {
+        router.replace('/home');
+      } else {
+        router.replace('/login');
+      }
+    });
 
-    if (!session) {
-      return <LoginPage />;
-    }
-
-    return <WrappedComponent {...props} />;
+    return status === 'unauthenticated' ? '' : <WrappedComponent {...props} />;
   };
 
   return Wrapper;

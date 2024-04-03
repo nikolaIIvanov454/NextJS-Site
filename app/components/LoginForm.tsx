@@ -1,20 +1,42 @@
 'use client';
 
-import React, { FormEvent, useState } from 'react';
-import { signIn } from 'next-auth/react';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 
+import { useRouter } from 'next/navigation.js';
+
 function LoginFormComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    document.cookie = `jwtToken=${session?.user.accessToken}; Secure; HttpOnly; SameSite=Strict`;
+  });
 
   const login = async (event: FormEvent) => {
     event.preventDefault();
 
-    signIn('credentials', { email: email, password: password, redirect: false});
+    const result = await signIn('credentials', {
+      email: email,
+      password: password,
+      username: email.split('@')[0],
+      redirect: false,
+    });
+
+    router.replace('/home');
+
+    if (result.error) {
+      setError(result.error);
+    }
   };
 
   return (
@@ -29,6 +51,7 @@ function LoginFormComponent() {
         }}>
         <form className='flex max-w-md flex-col gap-4'>
           <div>
+            {error && error}
             <div className='mb-2 block'>
               <Label htmlFor='email1' value='Your email' />
             </div>

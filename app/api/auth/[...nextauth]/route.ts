@@ -8,25 +8,28 @@ import User from '@/models/UserSchema';
 
 export const authOptions = {
   session: {
-    strategy: 'jwt' as const, // Set strategy as const
+    strategy: 'jwt' as const,
     jwt: {
       secret: process.env.JWT_SECRET,
-      encryption: true // Optional: Enable encryption for added security
-    }
+      maxAge: 60 * 60 * 24,
+    },
   },
-  next_secret_key: process.env.NEXTAUTH_SECRET_KEY,
+  next_secret_key: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET_KEY,
     }),
     CredentialsProvider({
-      name: 'Default',
+      name: 'email',
       credentials: {
         email: {
           label: 'Email',
           type: 'text',
           placeholder: 'example@example.com',
+        },
+        username: {
+          type: 'text',
         },
         password: { label: 'Password', type: 'password' },
       },
@@ -48,16 +51,31 @@ export const authOptions = {
             if (!passwordMatch) {
               throw new Error('Invalid password.'); // Reject the promise with an error
             } else {
-              return { id: user.id, email: user.email, name: user.name }; // Return a User object
+              return {
+                id: user.id,
+                email: user.email,
+                name: credentials.username,
+              };
             }
           } catch (error) {
             console.error('An error occured:', error);
-            throw error; // Reject the promise with the error
+            throw error;
           }
         }
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+
+    async session({ session, token, user }) {
+      session.accessToken = token;
+
+      return session;
+    },
+  },
 };
 
 export const handler = NextAuth(authOptions);

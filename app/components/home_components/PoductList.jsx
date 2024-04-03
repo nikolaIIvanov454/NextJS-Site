@@ -15,7 +15,6 @@ function ProductList() {
 
         const data = await response.json();
         setProducts(data.products);
-
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
@@ -25,9 +24,17 @@ function ProductList() {
   }, []);
 
   return (
-    <div style={{margin: '0 auto', padding: '20px' }}>
-      <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center'}}>What We Offer</h2>
-      <div className="flex flex-wrap -mx-4 justify-center items-center">
+    <div style={{ margin: '0 auto', padding: '20px' }}>
+      <h2
+        style={{
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          marginBottom: '1rem',
+          textAlign: 'center',
+        }}>
+        What We Offer
+      </h2>
+      <div className='flex flex-wrap -mx-4 justify-center items-center'>
         {products.map((product) => (
           <div key={product.id}>
             <Product product={product} />
