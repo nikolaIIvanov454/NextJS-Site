@@ -51,7 +51,9 @@ function NavbarComponent() {
           {data?.user ? (
             <>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item href='/user/settings'>
+              {location === '/about-us' ? <div className='p-1.5 pr-14 rounded bg-sky-500'>Settings</div> : 'Settings'}`
+              </Dropdown.Item>
               <Dropdown.Item>Money</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item href='/api/auth/signout'>Sign out</Dropdown.Item>
