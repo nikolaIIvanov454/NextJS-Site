@@ -52,7 +52,7 @@ function NavbarComponent() {
             <>
               <Dropdown.Item>Dashboard</Dropdown.Item>
               <Dropdown.Item href='/user/settings'>
-              {location === '/about-us' ? <div className='p-1.5 pr-14 rounded bg-sky-500'>Settings</div> : 'Settings'}`
+              {location === '/user/settings' ? <div className='p-1.5 pr-14 rounded bg-blue-400'>Settings</div> : 'Settings'}`
               </Dropdown.Item>
               <Dropdown.Item>Money</Dropdown.Item>
               <Dropdown.Divider />
@@ -67,27 +67,27 @@ function NavbarComponent() {
       <Navbar.Collapse>
         <Navbar.Link
           href='/home'
-          className={`nav-link ${location === '/home' ? 'text-cyan-700' : ''}`}>
+          className={`nav-link ${location === '/home' ? 'text-blue-700 md:hover:text-blue-400' : 'md:hover:text-blue-400'}`}>
           Home
         </Navbar.Link>
         <Navbar.Link
           href='/login'
           className={`nav-link ${
-            location === '/login' ? 'text-cyan-700' : ''
+            location === '/login' ? 'text-blue-700 md:hover:text-blue-400' : 'md:hover:text-blue-400'
           }`}>
           Login
         </Navbar.Link>
         <Navbar.Link
           href='/register'
           className={`nav-link ${
-            location === '/register' ? 'text-cyan-700' : ''
+            location === '/register' ? 'text-blue-700 md:hover:text-blue-400' : 'md:hover:text-blue-400'
           }`}>
           Register
         </Navbar.Link>
         <Navbar.Link
           href='/about-us'
           className={`nav-link ${
-            location === '/about-us' ? 'text-cyan-700' : ''
+            location === '/about-us' ? 'text-blue-700 md:hover:text-blue-400' : 'md:hover:text-blue-400'
           }`}>
           About Us
         </Navbar.Link>

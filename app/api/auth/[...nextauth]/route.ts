@@ -11,7 +11,7 @@ export const authOptions = {
     strategy: 'jwt' as const,
     jwt: {
       secret: process.env.JWT_SECRET,
-      maxAge: 60 * 60 * 24,
+      maxAge: 24 * 60 * 60,
     },
   },
   next_secret_key: process.env.NEXTAUTH_SECRET,
@@ -32,6 +32,9 @@ export const authOptions = {
           type: 'text',
         },
         password: { label: 'Password', type: 'password' },
+        rememberMe: {
+          type: 'string'
+        }
       },
 
       async authorize(credentials, req) {
@@ -40,7 +43,7 @@ export const authOptions = {
         const user = await User.findOne({ email: credentials.email });
 
         if (!user) {
-          throw new Error('Login is unsuccessful.'); // Reject the promise with an error
+          throw new Error('Login is unsuccessful.');
         } else {
           try {
             const passwordMatch = await argon2.verify(
@@ -49,7 +52,7 @@ export const authOptions = {
             );
 
             if (!passwordMatch) {
-              throw new Error('Invalid password.'); // Reject the promise with an error
+              throw new Error('Invalid password.');
             } else {
               return {
                 id: user.id,

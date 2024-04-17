@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent) => {
       } else {
         router.replace('/login');
       }
-    });
+    }, []);
 
     return status === 'unauthenticated' ? '' : <WrappedComponent {...props} />;
   };

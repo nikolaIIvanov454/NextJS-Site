@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation.js';
 function LoginFormComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberCheckbox, setRememberCheckbox] = useState('');
   const [error, setError] = useState('');
 
   const { data: session, status } = useSession();
@@ -29,14 +30,15 @@ function LoginFormComponent() {
       email: email,
       password: password,
       username: email.split('@')[0],
+      remember: rememberCheckbox,
       redirect: false,
     });
-
-    router.replace('/home');
 
     if (result.error) {
       setError(result.error);
     }
+
+    router.replace('/home');
   };
 
   return (
@@ -75,7 +77,7 @@ function LoginFormComponent() {
             />
           </div>
           <div className='flex items-center gap-2'>
-            <Checkbox id='remember' />
+            <Checkbox id='remember' onChange={(event) => setRememberCheckbox(event.target.value)} />
             <Label htmlFor='remember'>Remember me</Label>
           </div>
           <Button type='submit' onClick={login}>
