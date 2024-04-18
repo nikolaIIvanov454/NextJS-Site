@@ -80,10 +80,10 @@ function LoginFormComponent() {
             <Checkbox id='remember' onChange={(event) => setRememberCheckbox(event.target.value)} />
             <Label htmlFor='remember'>Remember me</Label>
           </div>
-          <Button type='submit' onClick={login}>
+          <Button type='submit' className='bg-blue-700 enabled:hover:bg-blue-800' onClick={login}>
             Submit
           </Button>
-          <Button onClick={() => signIn('google')}>Login with Google</Button>
+          <Button className='bg-blue-700 enabled:hover:bg-blue-800' onClick={() => signIn('google')}>Login with Google</Button>
         </form>
       </div>
 

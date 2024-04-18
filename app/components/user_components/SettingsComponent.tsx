@@ -7,12 +7,14 @@ import { Button } from 'flowbite-react';
 function SettingsComponent() {
   const { data } = useSession();
 
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [mail, setMail] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const username = data.user.name;
-  const email = data.user.email;
+  let handleChange = () => {
+      setLoading(true);
+  }
+
   const image = data.user.image;
 
   return (
@@ -54,7 +56,7 @@ function SettingsComponent() {
             placeholder='Username'
             value={data?.user.name && data.user.name}
             onChange={(event) => {
-              setName(event.target.value);
+              setUsername(event.target.value);
             }}
           />
         </div>
@@ -78,9 +80,7 @@ function SettingsComponent() {
             <span className='font-medium'>Oh, snapp!</span> Some error message.
           </p>
           <div className='flex justify-center mt-6'>
-            <Button size='md' isProcessing={loading} color='blue' onClick={() => {
-              setLoading(true);
-            }}>
+            <Button size='md' isProcessing={loading} color='blue' onClick={handleChange}>
               Change info
             </Button>
           </div>
