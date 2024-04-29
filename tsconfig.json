@@ -23,6 +23,6 @@
       "@libs/*": ["./libs/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/page.jsx", "app/api/update-info/route.js"],
   "exclude": ["node_modules"]
 }
