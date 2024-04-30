@@ -52,7 +52,7 @@ function NavbarComponent() {
             <>
               <Dropdown.Item>Dashboard</Dropdown.Item>
               <Dropdown.Item href='/user/settings'>
-              {location === '/user/settings' ? <div className='p-1.5 pr-14 rounded bg-blue-400'>Settings</div> : 'Settings'}`
+              {location === '/user/settings' ? <div className='p-1.5 pr-20 rounded bg-blue-400'>Settings</div> : 'Settings'}
               </Dropdown.Item>
               <Dropdown.Item>Money</Dropdown.Item>
               <Dropdown.Divider />

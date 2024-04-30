@@ -1,14 +1,20 @@
 @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  0% {
+    opacity: 0;
   }
-  
-  /* Apply the animation to the 'animate-appear' class */
-  .animate-appear {
-    animation: fadeIn 500ms ease-in-out 300ms forwards;
-    /* transition duration 500ms, delay 300ms, and maintains opacity after animation */
+  100% {
+    opacity: 1;
   }
+}
+
+.animate-appear {
+  animation: fadeIn 500ms ease-in-out 300ms forwards;
+}
+
+.group span {
+  background-color: rgb(26 86 219 / 1);
+}
+
+.group:hover .group-hover\:bg-white\/50 {
+  background-color: rgba(26, 87, 219, 0.7); 
+}

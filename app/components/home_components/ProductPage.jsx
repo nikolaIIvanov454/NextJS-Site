@@ -56,8 +56,8 @@ const ProductPage = () => {
           <p>Name: {name}</p>
           <p>Price: {price}</p>
         </div>
-      <div className="flex justify-start h-96 m-10 opacity-0 animate-appear transition-opacity duration-500 delay-300">
-        <Carousel className='w-1/2' slide={false}>
+      <div className="flex justify-start h-96 md:m-10 opacity-0 animate-appear transition-opacity duration-500 delay-300">
+        <Carousel className='md:w-1/2 sm:w-full' slide={false}>
           {imageUrl ? (
             imageUrl.map((url, index) => (
               <img key={index} src={url} alt={`Image ${index}`} className="max-h-64 sm:max-h-72 xl:max-h-96 2xl:max-h-120 w-auto h-auto" />

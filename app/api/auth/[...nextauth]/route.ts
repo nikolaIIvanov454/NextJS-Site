@@ -1,14 +1,14 @@
-import NextAuth from 'next-auth/next';
-import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from "next-auth/next";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import argon2 from 'argon2';
-import connectMongo from '@/libs/mongoConfig';
-import User from '@/models/UserSchema';
+import argon2 from "argon2";
+import connectMongo from "@/libs/mongoConfig";
+import User from "@/models/UserSchema";
 
 export const authOptions = {
   session: {
-    strategy: 'jwt' as const,
+    strategy: "jwt" as const,
     jwt: {
       secret: process.env.JWT_SECRET,
       maxAge: 24 * 60 * 60,
@@ -21,20 +21,20 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET_KEY,
     }),
     CredentialsProvider({
-      name: 'email',
+      name: "email",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'text',
-          placeholder: 'example@example.com',
+          label: "Email",
+          type: "text",
+          placeholder: "example@example.com",
         },
         username: {
-          type: 'text',
+          type: "text",
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
         rememberMe: {
-          type: 'string'
-        }
+          type: "string",
+        },
       },
 
       async authorize(credentials, req) {
@@ -43,7 +43,7 @@ export const authOptions = {
         const user = await User.findOne({ email: credentials.email });
 
         if (!user) {
-          throw new Error('Login is unsuccessful.');
+          throw new Error("Login is unsuccessful.");
         } else {
           try {
             const passwordMatch = await argon2.verify(
@@ -52,7 +52,7 @@ export const authOptions = {
             );
 
             if (!passwordMatch) {
-              throw new Error('Invalid password.');
+              throw new Error("Invalid password.");
             } else {
               return {
                 id: user.id,
@@ -61,7 +61,7 @@ export const authOptions = {
               };
             }
           } catch (error) {
-            console.error('An error occured:', error);
+            console.error("An error occured:", error);
             throw error;
           }
         }
@@ -69,8 +69,22 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
+    async jwt({ token, user, account, trigger, session }) {
+      if (account) {
+        token.provider = account.provider;
+      }
+
+      if (trigger === "update") {
+        if (session.user) {
+          token.name = session.user.name;
+          token.email = session.user.email;
+        }
+      }
+
+      return {
+        ...token,
+        ...user,
+      };
     },
 
     async session({ session, token, user }) {

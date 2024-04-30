@@ -2,9 +2,23 @@ import { NextResponse } from "next/server";
 
 import connectMongo from "@/libs/mongoConfig";
 import User from "@/models/UserSchema";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req) {
+  await connectMongo();
   const data = await req.json();
 
-  return NextResponse.json({ message: data }, {status: 200});
+  const session = await getServerSession(authOptions);
+
+  if (session.accessToken.provider !== "google") {
+    const user = await User.findOneAndUpdate({ name: session.user.name });
+
+    user.username = data.username;
+    user.email = data.email;
+
+    await user.save();
+
+    return NextResponse.json({ message: "Success!" }, { status: 200 })
+  }
 }

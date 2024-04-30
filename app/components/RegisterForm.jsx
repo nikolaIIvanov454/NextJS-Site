@@ -7,6 +7,8 @@ import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 
+import '@/app/css/style.css';
+
 function RegisterFormComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +22,7 @@ function RegisterFormComponent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: password }),
+        body: JSON.stringify({ username: email.split('@')[0], email: email, password: password }),
       });
 
       if (response.ok) {
@@ -82,12 +84,12 @@ function RegisterFormComponent() {
               I agree with the&nbsp;
               <a
                 href='#'
-                className='text-cyan-600 hover:underline dark:text-cyan-500'>
+                className='text-blue-700 hover:underline dark:text-blue-500'>
                 terms and conditions
               </a>
             </Label>
           </div>
-          <Button onClick={registerNewAccount} type='submit'>
+          <Button className='bg-blue-700 enabled:hover:bg-blue-800' onClick={registerNewAccount} type='submit'>
             Register new account
           </Button>
         </form>

@@ -5,13 +5,21 @@ import { useSession } from "next-auth/react";
 import { Button } from "flowbite-react";
 
 function SettingsComponent() {
-  const { data } = useSession();
+  const { data: session, update } = useSession();
 
-  const [username, setUsername] = useState(data?.user.name || "");
-  const [mail, setMail] = useState(data?.user.email || "");
+  const [username, setUsername] = useState(session?.user.name || "");
+  const [mail, setMail] = useState(session?.user.email || "");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   let handleChange = async () => {
+    await update({
+      user: {
+        name: username,
+        email: mail,
+      },
+    });
+
     try {
       const request = await fetch("/api/update-info", {
         method: "POST",
@@ -28,21 +36,23 @@ function SettingsComponent() {
 
       const response = await request.json();
 
-      if(response){
+      if (response) {
         setLoading(false);
       }
+
+      setMessage(response.message);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
   };
 
-  const image = data.user.image;
+  const image = session.user.image;
 
   return (
     <div className="flex justify-center items-center h-96">
       <div className="bg-gray-200 md:w-1/4 p-4 text-center">
         <div className="flex justify-center mb-8">
-          {data?.user && data.user.image ? (
+          {session?.user && session.user.image ? (
             <img
               className="w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500"
               src={image}
@@ -65,6 +75,7 @@ function SettingsComponent() {
             </div>
           )}
         </div>
+        <div>{message && message}</div>
         <div className="mb-6">
           <label
             htmlFor="success"
