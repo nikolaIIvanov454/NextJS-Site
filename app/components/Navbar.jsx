@@ -35,17 +35,17 @@ function NavbarComponent() {
               img={
                 data?.user
                   ? data.user.image
-                  : 'https://ui-avatars.com/api/?name=BassAddict'
+                  : 'https://ui-avatars.com/api/?name=notsigned'
               }
               rounded
             />
           }>
           <Dropdown.Header>
             <span className='block text-sm'>
-              {data?.user ? data.user.name : 'BassAddict'}
+              {data?.user ? data.user.name : 'Not Signed In'}
             </span>
             <span className='block truncate text-sm font-medium'>
-              {data?.user ? data.user.email : 'bass_addict@gmail.com'}
+              {data?.user ? data.user.email : ''}
             </span>
           </Dropdown.Header>
           {data?.user ? (

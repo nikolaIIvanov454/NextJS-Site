@@ -19,6 +19,11 @@ export async function POST(req) {
 
     await user.save();
 
-    return NextResponse.json({ message: "Success!" }, { status: 200 })
+    return NextResponse.json({ message: "Success!" }, { status: 200 });
   }
+
+  return NextResponse.json(
+    { message: "Third party authentication doesn't support this feature." },
+    { status: 200 }
+  );
 }

@@ -12,14 +12,10 @@ function SettingsComponent() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  let handleChange = async () => {
-    await update({
-      user: {
-        name: username,
-        email: mail,
-      },
-    });
 
+  let handleChange = async () => {
+    setLoading(true);
+    
     try {
       const request = await fetch("/api/update-info", {
         method: "POST",
@@ -32,12 +28,19 @@ function SettingsComponent() {
         }),
       });
 
-      setLoading(true);
-
       const response = await request.json();
 
       if (response) {
         setLoading(false);
+      }
+
+      if(response.message === 'Success!'){
+        await update({
+          user: {
+            name: username,
+            email: mail,
+          },
+        });
       }
 
       setMessage(response.message);
@@ -49,8 +52,8 @@ function SettingsComponent() {
   const image = session.user.image;
 
   return (
-    <div className="flex justify-center items-center h-96">
-      <div className="bg-gray-200 md:w-1/4 p-4 text-center">
+    <div className="flex justify-center items-center h-5/6">
+      <div className="bg-gray-200 p-4 text-center">
         <div className="flex justify-center mb-8">
           {session?.user && session.user.image ? (
             <img
