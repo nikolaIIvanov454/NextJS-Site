@@ -4,18 +4,20 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "flowbite-react";
 
+import "@/app/css/avatar-change-style.css";
+
 function SettingsComponent() {
   const { data: session, update } = useSession();
 
+  const [image, setImage] = useState();
   const [username, setUsername] = useState(session?.user.name || "");
   const [mail, setMail] = useState(session?.user.email || "");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   let handleChange = async () => {
     setLoading(true);
-    
+
     try {
       const request = await fetch("/api/update-info", {
         method: "POST",
@@ -25,6 +27,7 @@ function SettingsComponent() {
         body: JSON.stringify({
           username: username,
           email: mail,
+          image: image,
         }),
       });
 
@@ -34,7 +37,7 @@ function SettingsComponent() {
         setLoading(false);
       }
 
-      if(response.message === 'Success!'){
+      if (response.message === "Success!") {
         await update({
           user: {
             name: username,
@@ -49,32 +52,37 @@ function SettingsComponent() {
     }
   };
 
-  const image = session.user.image;
-
   return (
     <div className="flex justify-center items-center h-5/6">
       <div className="bg-gray-200 p-4 text-center">
         <div className="flex justify-center mb-8">
           {session?.user && session.user.image ? (
-            <img
-              className="w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500"
-              src={image}
-              alt="User avatar"
-            />
+            <div className="relative w-20 h-20">
+              <img
+                className="w-full h-full p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 cursor-pointer transition ease-in-out delay-150 bg-blue-600 hover:bg-blue-400 duration-300 hover:filter hover:brightness-90 dark:hover:brightness-110"
+                src={session.user.image}
+                alt="User avatar"
+              ></img>
+            </div>
           ) : (
-            <div className="relative w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 overflow-hidden">
-              <svg
-                className="absolute w-auto h-auto text-gray-400 -bottom-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
-                />
-              </svg>
+            <div className="relative w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 overflow-hidden ">
+              {false ? (
+                <img src="adad" alt="dwdw" />
+              ) : (
+                <div className="personal-image">
+                  <label className="label">
+                    <input type="file" name="picture" id="picture" accept="image/png, image/jpeg"/>
+                    <figure className="personal-figure">
+                      <svg className=" personal avatar text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                      <div id="center">
+                        <figcaption className="personal-figcaption">
+                          <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png"></img>
+                        </figcaption>
+                      </div>
+                    </figure>
+                  </label>
+                </div>
+              )}
             </div>
           )}
         </div>
