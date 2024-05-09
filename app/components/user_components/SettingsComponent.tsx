@@ -9,7 +9,8 @@ import "@/app/css/avatar-change-style.css";
 function SettingsComponent() {
   const { data: session, update } = useSession();
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
+  const [test, setTest] = useState(null);
   const [username, setUsername] = useState(session?.user.name || "");
   const [mail, setMail] = useState(session?.user.email || "");
   const [message, setMessage] = useState("");
@@ -18,17 +19,15 @@ function SettingsComponent() {
   let handleChange = async () => {
     setLoading(true);
 
+    let data = new FormData();
+    data.set("username", username);
+    data.set("email", mail);
+    data.set("image", test);
+
     try {
       const request = await fetch("/api/update-info", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          email: mail,
-          image: image,
-        }),
+        body: data,
       });
 
       const response = await request.json();
@@ -62,18 +61,63 @@ function SettingsComponent() {
                 className="w-full h-full p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 cursor-pointer transition ease-in-out delay-150 bg-blue-600 hover:bg-blue-400 duration-300 hover:filter hover:brightness-90 dark:hover:brightness-110"
                 src={session.user.image}
                 alt="User avatar"
-              ></img>
+              />
             </div>
           ) : (
             <div className="relative w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 overflow-hidden ">
-              {false ? (
-                <img src="adad" alt="dwdw" />
+              {image ? (
+                <div className="personal-image">
+                  <label className="label">
+                    <input
+                      type="file"
+                      name="picture"
+                      id="picture"
+                      accept="image/png, image/jpeg"
+                      onChange={(event) => {
+                        if (event.target.files[0]) {
+                          setTest(event.target.files[0]);
+                          setImage(URL.createObjectURL(event.target.files[0]));
+                        }
+                      }}
+                    />
+                    <figure className="personal-figure">
+                      <img src={image} alt="picture" />
+                      <div id="center">
+                        <figcaption className="personal-figcaption">
+                          <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" />
+                        </figcaption>
+                      </div>
+                    </figure>
+                  </label>
+                </div>
               ) : (
                 <div className="personal-image">
                   <label className="label">
-                    <input type="file" name="picture" id="picture" accept="image/png, image/jpeg"/>
+                    <input
+                      type="file"
+                      name="picture"
+                      id="picture"
+                      accept="image/png, image/jpeg"
+                      onChange={(event) => {
+                        if (event.target.files[0]) {
+                          setTest(event.target.files[0]);
+                          setImage(URL.createObjectURL(event.target.files[0]));
+                        }
+                      }}
+                    />
                     <figure className="personal-figure">
-                      <svg className=" personal avatar text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                      <svg
+                        className=" personal avatar text-gray-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
                       <div id="center">
                         <figcaption className="personal-figcaption">
                           <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png"></img>
