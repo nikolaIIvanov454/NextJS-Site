@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import argon2 from "argon2";
 import connectMongo from "@/libs/mongoConfig";
 import User from "@/models/UserSchema";
+import { signOut } from "next-auth/react";
 
 export const authOptions = {
   session: {
@@ -12,6 +13,16 @@ export const authOptions = {
     jwt: {
       secret: process.env.JWT_SECRET,
       maxAge: 24 * 60 * 60,
+    },
+  },
+  cookie: {
+    name: "next-auth.session",
+    options: {
+      httpOnly: true,
+      sameSite: "lax",
+      // Setting maxAge to undefined or a short duration (e.g., 0) will make the cookie a session cookie,
+      // which is deleted when the browser is closed
+      maxAge: undefined, // or 0
     },
   },
   next_secret_key: process.env.NEXTAUTH_SECRET,
@@ -32,8 +43,9 @@ export const authOptions = {
           type: "text",
         },
         password: { label: "Password", type: "password" },
-        rememberMe: {
-          type: "string",
+        remember: {
+          label: "Remember Me",
+          type: "checkbox",
         },
       },
 
@@ -55,9 +67,10 @@ export const authOptions = {
               throw new Error("Invalid password.");
             } else {
               return {
-                id: user.id,
+                id: user._id,
                 email: user.email,
                 name: credentials.username,
+                rememberMe: credentials.remember,
               };
             }
           } catch (error) {
@@ -70,14 +83,26 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
-      if (account) {
-        token.provider = account.provider;
-      }
+      if (user) {
 
-      if (trigger === "update") {
-        if (session.user) {
-          token.name = session.user.name;
-          token.email = session.user.email;
+        token.maxAge = user.rememberMe ? 24 * 60 * 60 : 0;
+        token.provider = account?.provider; 
+
+        if (account) {
+          token.provider = account.provider;
+        }
+
+        if (trigger === "update") {
+          if (session.user) {
+            token.name = session.user.name;
+            token.email = session.user.email;
+          }
+        }
+
+        if (user.rememberMe) {
+          token.maxAge = 24 * 60 * 60; 
+        } else {
+          token.maxAge = 0;
         }
       }
 
@@ -89,7 +114,13 @@ export const authOptions = {
 
     async session({ session, token, user }) {
       session.accessToken = token;
-      
+
+      if (session.accessToken.rememberMe === 'true') {
+        session.accessToken.maxAge = 24 * 60 * 60;
+      } else if(session.accessToken.rememberMe === 'false')  {
+        session.accessToken.maxAge = 0;
+      }
+
       return session;
     },
   },

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { usePathname } from 'next/navigation';
 
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
@@ -56,7 +56,7 @@ function NavbarComponent() {
               </Dropdown.Item>
               <Dropdown.Item>Money</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href='/api/auth/signout'>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={() => { signOut({ callbackUrl: "/home" }) }}>Sign out</Dropdown.Item>
             </>
           ) : (
             ''

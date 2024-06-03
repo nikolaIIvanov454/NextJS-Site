@@ -12,7 +12,7 @@ import "@/app/css/style.css";
 function LoginFormComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberCheckbox, setRememberCheckbox] = useState("");
+  const [rememberCheckbox, setRememberCheckbox] = useState(false);
   const [error, setError] = useState("");
 
   const { data: session, status } = useSession();
@@ -81,7 +81,7 @@ function LoginFormComponent() {
           <div className="flex items-center gap-2">
             <Checkbox
               id="remember"
-              onChange={(event) => setRememberCheckbox(event.target.value)}
+              onChange={(event) => setRememberCheckbox(event.target.checked)}
             />
             <Label htmlFor="remember">Remember me</Label>
           </div>

@@ -16,6 +16,7 @@ export async function POST(req) {
 
     user.username = data.username;
     user.email = data.email;
+    console.log(session);
 
     await user.save();
 

@@ -9,11 +9,25 @@ import "@/app/css/avatar-change-style.css";
 function SettingsComponent() {
   const { data: session, update } = useSession();
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [username, setUsername] = useState(session?.user.name || "");
   const [mail, setMail] = useState(session?.user.email || "");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  let handleImageUpload = (element) => {
+    const file = element.target.files[0];
+    const reader = new FileReader();
+
+    // Read the uploaded file as a data URL
+    reader.readAsDataURL(file);
+
+    // When the file reading is done
+    reader.onload = () => {
+      // Set the image state to the data URL
+      setImage(reader.result);
+    };
+  };
 
   let handleChange = async () => {
     setLoading(true);
@@ -71,9 +85,28 @@ function SettingsComponent() {
               ) : (
                 <div className="personal-image">
                   <label className="label">
-                    <input type="file" name="picture" id="picture" accept="image/png, image/jpeg"/>
+                    <input
+                      type="file"
+                      name="picture"
+                      id="picture"
+                      accept="image/png, image/jpeg"
+                      onChange={handleImageUpload}
+                    />
                     <figure className="personal-figure">
-                      <svg className=" personal avatar text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                      {image ? (<img src={image} alt="personal_avatar"/> ) : (
+                        <svg
+                          className="personal avatar text-gray-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clipRule="evenodd"
+                          ></path>
+                        </svg>
+                      )}
                       <div id="center">
                         <figcaption className="personal-figcaption">
                           <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png"></img>
