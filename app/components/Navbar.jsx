@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
@@ -12,6 +12,32 @@ function NavbarComponent() {
   const location = usePathname();
 
   const { data } = useSession();
+
+  const [image, setImage] = useState(data?.user?.image || null);
+
+  // let loadAvatar = async () => {
+  //   const request = await fetch("/api/load-avatar", {
+  //     method: "GET"
+  //   });
+
+  //   const response = await request.json();
+
+  //   setImage(response.avatar);
+  // }
+
+  useEffect(() => {
+    let loadAvatar = async () => {
+      const request = await fetch("/api/load-avatar", {
+        method: "GET"
+      });
+
+      const response = await request.json();
+
+      setImage(response.avatar);
+    }
+
+    loadAvatar();
+  }, []);  
 
   return (
     <Navbar fluid rounded>
@@ -34,7 +60,7 @@ function NavbarComponent() {
               alt='User settings'
               img={
                 data?.user
-                  ? data.user.image
+                  ? image
                   : 'https://ui-avatars.com/api/?name=notsigned'
               }
               rounded
@@ -56,7 +82,7 @@ function NavbarComponent() {
               </Dropdown.Item>
               <Dropdown.Item>Money</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={() => { signOut({ callbackUrl: "/home" }) }}>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={() => { signOut({ callbackUrl: "/login" }) }}>Sign out</Dropdown.Item>
             </>
           ) : (
             ''

@@ -17,27 +17,36 @@ export async function POST(req) {
 
   const session = await getServerSession(authOptions);
 
-  if (!image) {
-    return NextResponse.json({ error: "No images received." }, { status: 400 });
+  if (image === 'null') { 
+    return NextResponse.json({ error: "No image selected." }, { status: 400 });
+  } else {
+    const buffer = Buffer.from(await image.arrayBuffer());
+
+    await writeFile(
+      join(`${process.cwd()}/public/picture-uploads/${image.name}`),
+      buffer
+    );
   }
-
-  const buffer = Buffer.from(await image.arrayBuffer());
-
-  await writeFile(
-    join(`${process.cwd()}/public/picture-uploads/`, image.name),
-    buffer
-  );
 
   if (session.accessToken.provider !== "google") {
     const user = await User.findOneAndUpdate({ name: session.user.name });
 
+    const imageUrl = `/picture-uploads/${image.name}`;
+
+    console.log(user);
+
     user.username = username;
     user.email = email;
-    console.log(session);
+    user.avatar = imageUrl;
+
+    session.user.image = imageUrl;
 
     await user.save();
 
-    return NextResponse.json({ message: "Success!" }, { status: 200 });
+    return NextResponse.json(
+      { message: "Success!", imageUrl },
+      { status: 200 }
+    );
   }
 
   return NextResponse.json(
