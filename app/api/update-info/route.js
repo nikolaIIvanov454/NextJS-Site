@@ -33,8 +33,6 @@ export async function POST(req) {
 
     const imageUrl = `/picture-uploads/${image.name}`;
 
-    console.log(user);
-
     user.username = username;
     user.email = email;
     user.avatar = imageUrl;

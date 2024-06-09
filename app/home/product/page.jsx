@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ProductPageComponent from '../../components/home_components/ProductPage'
+import ProductPageComponent from '@/client/components/home/ProductPage'
 
 function Page() {
   return (

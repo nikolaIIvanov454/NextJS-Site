@@ -1,9 +1,9 @@
 import React from 'react';
 
-import HomeComponent from '../components/Home';
+import HomeComponent from '@/client/components/Home';
 
-function page() {
+function Page() {
   return <HomeComponent />;
 }
 
-export default page;
+export default Page;

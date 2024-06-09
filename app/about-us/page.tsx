@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import AboutUsPageComponent from '../components/AboutUsPage';
+import AboutUsPageComponent from "../components/AboutUsPage";
 
 function AboutUsPage() {
   return (
     <>
-        <AboutUsPageComponent />
+      <AboutUsPageComponent />
     </>
-  )
+  );
 }
 
-export default AboutUsPage
+export default AboutUsPage;

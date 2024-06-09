@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RegisterFormComponent from '../components/RegisterForm';
+import RegisterFormComponent from '../../client/components/RegisterForm';
 
 function RegisterPage() {
   return (

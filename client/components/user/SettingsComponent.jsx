@@ -6,7 +6,6 @@ import { Button } from "flowbite-react";
 
 import "@/app/css/avatar-change-style.css";
 
-
 function SettingsComponent() {
   const { data: session, update } = useSession();
 
@@ -65,13 +64,13 @@ function SettingsComponent() {
 
   let loadAvatar = async () => {
     const request = await fetch("/api/load-avatar", {
-      method: "GET"
+      method: "GET",
     });
 
     const response = await request.json();
 
-    setImage(response.avatar);
-  }
+    setImage(response?.avatar);
+  };
 
   return (
     <div className="flex justify-center items-center h-5/6">
@@ -124,7 +123,7 @@ function SettingsComponent() {
           )}
         </div>
         <div>{message && message}</div>
-        
+
         <div className="mb-6">
           <label
             htmlFor="success"

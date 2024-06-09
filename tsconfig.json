@@ -23,6 +23,6 @@
       "@libs/*": ["./libs/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/page.jsx", "app/api/update-info/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/page.jsx", "app/api/update-info/route.js", "client/components/ProtectComponent.jsx", "client/components/LoginForm.jsx", "client/components/Home.jsx", "client/components/user/SettingsComponent.jsx", "app/home/product/page.jsx", "app/login/page.jsx", "app/user/settings/page.jsx"],
   "exclude": ["node_modules"]
 }

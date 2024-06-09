@@ -73,7 +73,6 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
       if (user) {
-        // token.user = user; // Merge user data into token
         token.provider = account?.provider;
         token.maxAge = user.remember ? 24 * 60 * 60 : 0;
       }
@@ -88,7 +87,6 @@ export const authOptions = {
     },
 
     async session({ session, token }) {
-      // session.user = token.user; 
       session.accessToken = token;
 
       if (token.user?.remember) {

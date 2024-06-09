@@ -1,9 +1,7 @@
-'use client';
-
 import { Carousel } from 'flowbite-react';
 
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from '@/client/components/Navbar';
+import Footer from '@/app/components/Footer';
 
 import '../css/about-us-style.css';
 
