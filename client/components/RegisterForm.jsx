@@ -4,9 +4,6 @@ import React, { useState } from "react";
 
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 
-import Navbar from "@/client/components/Navbar.jsx";
-import Footer from "@/app/components/Footer";
-
 import "@/app/css/style.css";
 
 function RegisterFormComponent() {
@@ -42,7 +39,6 @@ function RegisterFormComponent() {
 
   return (
     <div>
-      <Navbar />
       <div
         style={{
           display: "flex",
@@ -104,8 +100,6 @@ function RegisterFormComponent() {
           </Button>
         </form>
       </div>
-
-      <Footer />
     </div>
   );
 }

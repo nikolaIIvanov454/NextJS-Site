@@ -16,14 +16,20 @@ function NavbarComponent() {
   const [image, setImage] = useState(data?.user?.image || null);
 
   useEffect(() => {
-    let loadAvatar = async () => {
-      const request = await fetch("/api/load-avatar", {
-        method: "GET",
-      });
+    const loadAvatar = async () => {
+      try {
+        const response = await fetch("/api/load-avatar");
 
-      const response = await request.json();
-
-      setImage(response.avatar);
+        if (response.ok) {
+          const data = await response.json();
+          
+          setImage(data.avatar);
+        } else {
+          console.error('Failed to load avatar');
+        }
+      } catch (error) {
+        console.error('An error occurred while loading avatar:', error);
+      }
     };
 
     loadAvatar();

@@ -14,6 +14,7 @@ function ProductList() {
         const response = await fetch("/api/get-products");
 
         const data = await response.json();
+        
         setProducts(data.products);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -37,7 +38,7 @@ function ProductList() {
       </h2>
       <div className="flex flex-wrap -mx-4 justify-center items-center">
         {products.map((product) => (
-          <div key={product.id}>
+          <div>
             <Product product={product} />
           </div>
         ))}

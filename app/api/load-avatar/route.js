@@ -14,7 +14,7 @@ export async function GET(req) {
 
     if (user?.avatar && session.accessToken.provider !== "google") {
       return NextResponse.json({ avatar: user.avatar });
-    }else{
+    } else {
       return NextResponse.json({ avatar: session.user.image });
     }
   }

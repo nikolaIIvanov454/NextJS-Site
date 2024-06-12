@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { Button, Checkbox, Label, Popover, TextInput } from "flowbite-react";
 
-import Navbar from "@/client/components/Navbar.jsx";
-import Footer from "@/app/components/Footer.jsx";
-
 import "@/app/css/style.css";
 
 function LoginFormComponent() {
@@ -60,7 +57,6 @@ function LoginFormComponent() {
 
   return (
     <div>
-      <Navbar />
       <div
         style={{
           display: "flex",
@@ -256,8 +252,6 @@ function LoginFormComponent() {
           </Button>
         </form>
       </div>
-
-      <Footer />
     </div>
   );
 }

@@ -74,7 +74,7 @@ function SettingsComponent() {
 
   return (
     <div className="flex justify-center items-center h-5/6">
-      <div className="bg-gray-200 p-4 text-center">
+      <div className="bg-gray-200 p-4 text-center h-auto">
         <div className="flex justify-center mb-8">
           {session?.user && session.user.image ? (
             <div className="relative w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 overflow-hidden ">
@@ -174,6 +174,7 @@ function SettingsComponent() {
           </div>
         </div>
       </div>
+      <div className="box-content h-screen"></div>
     </div>
   );
 }

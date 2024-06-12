@@ -3,18 +3,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import { useSearchParams } from "next/navigation";
-
 import { Carousel } from "flowbite-react";
 
 import NavbarComponent from "@/client/components/Navbar";
 import FooterComponent from "@/app/components/Footer";
 
-import "../../../app/css/product.css";
+import "@/app/css/product.css";
 
-const ProductPage = () => {
-  const _id = useSearchParams().get("id");
-
+const ProductPage = ({ productId }) => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const ProductPage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ _id: _id }),
+          body: JSON.stringify({ _id: productId }),
         });
 
         if (!response.ok) {
@@ -48,7 +44,6 @@ const ProductPage = () => {
 
   return (
     <div>
-      <NavbarComponent />
       <h1>Product Page</h1>
       <div>
         <p>ID: {id}</p>
@@ -75,7 +70,6 @@ const ProductPage = () => {
           )}
         </Carousel>
       </div>
-      <FooterComponent />
     </div>
   );
 };
