@@ -5,9 +5,6 @@ import { useEffect, useState } from "react";
 
 import { Carousel } from "flowbite-react";
 
-import NavbarComponent from "@/client/components/Navbar";
-import FooterComponent from "@/app/components/Footer";
-
 import "@/app/css/product.css";
 
 const ProductPage = ({ productId }) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "flowbite-react";
 
@@ -62,15 +62,25 @@ function SettingsComponent() {
     }
   };
 
-  let loadAvatar = async () => {
-    const request = await fetch("/api/load-avatar", {
-      method: "GET",
-    });
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+        const response = await fetch("/api/load-avatar");
 
-    const response = await request.json();
+        if (response.ok) {
+          const data = await response.json();
+          
+          setImage(data.avatar);
+        } else {
+          console.error('Failed to load avatar');
+        }
+      } catch (error) {
+        console.error('An error occurred while loading avatar:', error);
+      }
+    };
 
-    setImage(response?.avatar);
-  };
+    fetchAvatar();
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-5/6">
@@ -88,7 +98,7 @@ function SettingsComponent() {
                     onChange={handleImageUpload}
                   />
                   <figure className="personal-figure">
-                    <img src={!image ? loadAvatar() : image} alt="picture" />
+                    <img src={image} alt="picture" />
                     <div id="center">
                       <figcaption className="personal-figcaption">
                         <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" />
@@ -110,7 +120,7 @@ function SettingsComponent() {
                     onChange={handleImageUpload}
                   />
                   <figure className="personal-figure">
-                    <img src={!image ? loadAvatar() : image} alt="picture" />
+                    <img src={image} alt="picture" />
                     <div id="center">
                       <figcaption className="personal-figcaption">
                         <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" />

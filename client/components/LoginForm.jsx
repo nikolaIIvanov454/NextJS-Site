@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { signIn } from "next-auth/react";
 import { Button, Checkbox, Label, Popover, TextInput } from "flowbite-react";
 
 import "@/app/css/style.css";
@@ -17,12 +17,6 @@ function LoginFormComponent() {
   });
   const [rememberCheckbox, setRememberCheckbox] = useState(false);
   const [error, setError] = useState("");
-
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    document.cookie = `jwtToken=${session?.user.accessToken}; Secure; HttpOnly; SameSite=Strict`;
-  });
 
   const handlePasswordInput = (e) => {
     const password = e.target.value;
@@ -40,15 +34,13 @@ function LoginFormComponent() {
   const login = async (event) => {
     event.preventDefault();
 
-    const result = await signIn(
-      "credentials",
-      {
-        username: email.split("@")[0],
-        email: email,
-        password: password,
-        remember: rememberCheckbox,
-      },
-    );
+    const result = await signIn("credentials", {
+      username: email.split("@")[0],
+      email: email,
+      password: password,
+      remember: rememberCheckbox,
+      callbackUrl: "/home",
+    });
 
     if (result.error) {
       setError(result.error);

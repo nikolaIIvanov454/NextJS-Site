@@ -1,7 +1,8 @@
+// pages/api/user/[username].js
 import connectMongo from "@/libs/mongoConfig";
 import User from "@/models/UserSchema";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -12,7 +13,7 @@ export async function GET(req) {
   if (session) {
     const user = await User.findOne({ username: session.user.name });
 
-    if (user?.avatar && session.accessToken.provider !== "google") {
+    if (user?.avatar && session.user.provider !== "google") {
       return NextResponse.json({ avatar: user.avatar });
     } else {
       return NextResponse.json({ avatar: session.user.image });

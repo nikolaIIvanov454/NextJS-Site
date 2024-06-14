@@ -38,7 +38,7 @@ function ProductList() {
       </h2>
       <div className="flex flex-wrap -mx-4 justify-center items-center">
         {products.map((product) => (
-          <div>
+          <div key={product.id}>
             <Product product={product} />
           </div>
         ))}
