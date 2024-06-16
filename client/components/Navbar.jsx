@@ -140,6 +140,16 @@ function NavbarComponent() {
         >
           About Us
         </Navbar.Link>
+        <Navbar.Link
+          href="/admin"
+          className={`nav-link ${
+            location === "/admin"
+              ? "text-blue-700 md:hover:text-blue-400"
+              : "md:hover:text-blue-400"
+          }`}
+        >
+          Admin
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
