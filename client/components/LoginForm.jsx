@@ -231,13 +231,15 @@ function LoginFormComponent() {
           </div>
           <Button
             type="submit"
-            className="bg-blue-700 enabled:hover:bg-blue-800"
+            color="blue"
+            className="enabled:hover:bg-blue-800"
             onClick={login}
           >
             Submit
           </Button>
           <Button
-            className="bg-blue-700 enabled:hover:bg-blue-800"
+            color="blue"
+            className="enabled:hover:bg-blue-800"
             onClick={() => signIn("google", { callbackUrl: "/home" })}
           >
             Login with Google

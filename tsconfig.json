@@ -36,7 +36,8 @@
     "client/components/user/SettingsComponent.jsx",
     "app/home/product/[productId]/page.jsx",
     "app/login/page.jsx",
-    "app/user/settings/page.jsx"
+    "app/user/settings/page.jsx",
+    "app/components/*"
   ],
   "exclude": ["node_modules"]
 }
