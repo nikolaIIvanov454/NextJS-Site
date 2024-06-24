@@ -8,6 +8,8 @@ import { signOut, useSession } from "next-auth/react";
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 
+import ThemeSwitcher from "@/client/components/theme/ThemeSwitcher";
+
 function NavbarComponent() {
   const location = usePathname();
 
@@ -22,13 +24,13 @@ function NavbarComponent() {
 
         if (response.ok) {
           const data = await response.json();
-          
+
           setImage(data.avatar);
         } else {
-          console.error('Failed to load avatar');
+          console.error("Failed to load avatar");
         }
       } catch (error) {
-        console.error('An error occurred while loading avatar:', error);
+        console.error("An error occurred while loading avatar:", error);
       }
     };
 
@@ -48,6 +50,11 @@ function NavbarComponent() {
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
+        <div className="flex mr-5 items-center">
+          <div className="transition-colors duration-700">
+            <ThemeSwitcher />
+          </div>
+        </div>
         <Dropdown
           arrowIcon={false}
           inline

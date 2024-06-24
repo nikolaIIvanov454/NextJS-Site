@@ -1,0 +1,13 @@
+.focus\:ring-cyan-500:focus {
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+.focus\:border-cyan-500:focus {
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+
+.dark .focus\:ring-cyan-500:focus {
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+.dark .focus\:border-cyan-500:focus {
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}

@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import connectMongo from "@/libs/mongoConfig";
 import User from "@/models/UserSchema";
 
 import argon2 from "argon2";
 
-export async function POST(req: NextRequest) {
-  const { username, email, password } = await req.json();
+export async function POST(req) {
+  const { username, email, password, role, avatar } = await req.json();
 
   await connectMongo();
 
@@ -18,7 +18,13 @@ export async function POST(req: NextRequest) {
 
   const hashedPassword = await argon2.hash(password);
 
-  User.create({ username: username, email: email, password: hashedPassword });
+  User.create({
+    username: username,
+    email: email,
+    password: hashedPassword,
+    role: role,
+    avatar: avatar,
+  });
 
   return NextResponse.json("User successfully registered!");
 }

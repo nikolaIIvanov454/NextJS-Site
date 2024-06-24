@@ -10,7 +10,7 @@ function SettingsComponent() {
   const { data: session, update } = useSession();
 
   const [image, setImage] = useState(session?.user?.image || null);
-  const [test, setTest] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [username, setUsername] = useState(session?.user.name || "");
   const [mail, setMail] = useState(session?.user.email || "");
   const [message, setMessage] = useState("");
@@ -23,8 +23,9 @@ function SettingsComponent() {
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      setTest(file);
+      setImageFile(file);
       setImage(reader.result);
+      console.log(reader.result);
     };
   };
 
@@ -34,7 +35,7 @@ function SettingsComponent() {
     let data = new FormData();
     data.set("username", username);
     data.set("email", mail);
-    data.set("image", test);
+    data.set("image", imageFile);
 
     try {
       const request = await fetch("/api/update-info", {
@@ -71,8 +72,6 @@ function SettingsComponent() {
           const data = await response.json();
           
           setImage(data.avatar);
-        } else {
-          console.error('Failed to load avatar');
         }
       } catch (error) {
         console.error('An error occurred while loading avatar:', error);
@@ -82,9 +81,11 @@ function SettingsComponent() {
     fetchAvatar();
   }, []);
 
+  console.log(image);
+
   return (
     <div className="flex justify-center items-center h-5/6">
-      <div className="bg-gray-200 p-4 text-center h-auto">
+      <div className="bg-gray-200 dark:bg-gray-700 p-4 text-center h-auto">
         <div className="flex justify-center mb-8">
           {session?.user && session.user.image ? (
             <div className="relative w-20 h-20 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500 overflow-hidden ">

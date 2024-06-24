@@ -16,7 +16,9 @@ function page() {
 
         const data = await response.json();
 
-        setProducts(data.products);
+        if (response.ok) {
+          setProducts(data.products);
+        }
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -27,7 +29,7 @@ function page() {
 
   return (
     <>
-      <AdminPanelComponent />
+      <AdminPanelComponent countProducts={products.length} />
 
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
@@ -36,7 +38,7 @@ function page() {
               <div key={product.id}>
                 <Product
                   product={product}
-                  onClick={() => handleClick(product)}
+                  onClickAdminPage={() => handleClick(product)}
                 />
               </div>
             ))}

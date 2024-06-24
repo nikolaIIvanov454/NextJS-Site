@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 
-import "@/app/css/style.css";
+import "@/app/css/styles.css"
 
 function RegisterFormComponent() {
   const [email, setEmail] = useState("");
@@ -23,6 +23,8 @@ function RegisterFormComponent() {
           username: email.split("@")[0],
           email: email,
           password: password,
+          role: "standard",
+          avatar: ""
         }),
       });
 
@@ -80,19 +82,21 @@ function RegisterFormComponent() {
             <TextInput id="repeat-password" type="password" required shadow />
           </div>
           <div className="flex items-center gap-2">
-            <Checkbox id="agree" />
+            <Checkbox id="agree" className="border-blue-700 text-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600" />
             <Label htmlFor="agree" className="flex">
               I agree with the&nbsp;
               <a
                 href="#"
-                className="text-blue-700 hover:underline dark:text-blue-500"
+                color="blue"
+                className="hover:underline dark:text-blue-500"
               >
                 terms and conditions
               </a>
             </Label>
           </div>
           <Button
-            className="bg-blue-700 enabled:hover:bg-blue-800"
+            color={"blue"}
+            className="enabled:hover:bg-blue-800"
             onClick={registerNewAccount}
             type="submit"
           >

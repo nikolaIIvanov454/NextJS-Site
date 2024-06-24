@@ -17,7 +17,7 @@ export async function POST(req) {
 
   const session = await getServerSession(authOptions);
 
-  if (image === 'null') { 
+  if (image === "null") {
     return NextResponse.json({ error: "No image selected." }, { status: 400 });
   } else {
     const buffer = Buffer.from(await image.arrayBuffer());
@@ -29,26 +29,28 @@ export async function POST(req) {
   }
 
   if (session.accessToken.provider !== "google") {
-    const user = await User.findOneAndUpdate({ name: session.user.name });
+    const user = await User.findOne({ username: session.user.name });
+
+    const updateUser = await User.findByIdAndUpdate({ _id: user._id });
 
     const imageUrl = `/picture-uploads/${image.name}`;
 
-    user.username = username;
-    user.email = email;
-    user.avatar = imageUrl;
+    updateUser.username = username;
+    updateUser.email = email;
+    updateUser.avatar = imageUrl;
 
     session.user.image = imageUrl;
 
-    await user.save();
+    await updateUser.save();
 
     return NextResponse.json(
       { message: "Success!", imageUrl },
       { status: 200 }
     );
+  } else {
+    return NextResponse.json(
+      { message: "Third party authentication doesn't support this feature." },
+      { status: 200 }
+    );
   }
-
-  return NextResponse.json(
-    { message: "Third party authentication doesn't support this feature." },
-    { status: 200 }
-  );
 }

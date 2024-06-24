@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     "app/home/page.jsx",
     "app/api/update-info/route.js",
-    "client/components/ProtectComponent.jsx",
+    "app/components/ProtectComponent.jsx",
     "client/components/LoginForm.jsx",
     "client/components/Home.jsx",
     "client/components/user/SettingsComponent.jsx",
@@ -38,6 +38,6 @@
     "app/login/page.jsx",
     "app/user/settings/page.jsx",
     "app/components/*"
-  ],
+, "client/components/SuccessPopup.jsx", "app/about-us/page.jsx", "app/api/auth/register/route.js"  ],
   "exclude": ["node_modules"]
 }

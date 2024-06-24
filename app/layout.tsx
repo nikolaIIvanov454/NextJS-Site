@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { getServerSession } from "next-auth";
+
 import SessionProvider from "@/client/components/SessionProvider";
 import NavbarComponent from "@/client/components/Navbar";
-import FooterComponent from "./components/Footer";
+import FooterComponent from "@/app/components/Footer";
+import { Provider } from "@/app/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,15 +24,19 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="bg">
-      <head>
-        {/* Place your head elements here */}
-      </head>
+    <html lang="bg" suppressHydrationWarning>
+      <head>{/* Place your head elements here */}</head>
       <body>
         <SessionProvider session={session}>
-          <header><NavbarComponent /></header>
+          <Provider>
+            <header>
+              <NavbarComponent />
+            </header>
+          </Provider>
           {children}
-          <footer><FooterComponent /></footer>
+          <footer>
+            <FooterComponent />
+          </footer>
         </SessionProvider>
       </body>
     </html>

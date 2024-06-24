@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Button, Checkbox, Label, Popover, TextInput } from "flowbite-react";
 
-import "@/app/css/style.css";
+import "@/app/css/styles.css"
 
 function LoginFormComponent() {
   const [email, setEmail] = useState("");
@@ -66,7 +66,7 @@ function LoginFormComponent() {
             <TextInput
               id="email1"
               type="email"
-              className={"focus:border-blue-700"}
+              className="focus:border-blue-500 focus:ring-blue-500"
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@flowbite.com"
               required
@@ -225,6 +225,7 @@ function LoginFormComponent() {
           <div className="flex items-center gap-2">
             <Checkbox
               id="remember"
+              className="border-blue-700 text-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600"
               onChange={(event) => setRememberCheckbox(event.target.checked)}
             />
             <Label htmlFor="remember">Remember me</Label>

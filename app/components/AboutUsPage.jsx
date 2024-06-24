@@ -1,6 +1,6 @@
 import { Carousel } from 'flowbite-react';
 
-import '@/app/css/about-us-style.css';
+import '@/app/css/product.css';
 
 function AboutUsPageComponent() {
   return (

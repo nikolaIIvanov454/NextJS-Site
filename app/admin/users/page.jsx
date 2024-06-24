@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+
+import UserTable from "@/client/components/admin/UserTable";
 
 function page() {
   return (
-    <div>page</div>
-  )
+    <>
+      <UserTable />
+    </>
+  );
 }
 
-export default page
+export default page;

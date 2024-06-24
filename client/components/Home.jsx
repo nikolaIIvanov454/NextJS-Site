@@ -3,7 +3,7 @@
 import React from "react";
 import Products from "@/client/components/home/PoductList";
 
-import withAuth from "@/client/components/ProtectComponent";
+import withAuth from "@/app/components/ProtectComponent";
 
 function HomeComponent() {
   return (
