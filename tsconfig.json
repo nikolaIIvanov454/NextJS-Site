@@ -38,6 +38,6 @@
     "app/login/page.jsx",
     "app/user/settings/page.jsx",
     "app/components/*"
-, "client/components/SuccessPopup.jsx", "app/about-us/page.jsx", "app/api/auth/register/route.js"  ],
+, "client/components/SuccessPopup.jsx", "app/about-us/page.jsx", "app/api/auth/register/route.js", "libs/contexts/AdminContext.js"  ],
   "exclude": ["node_modules"]
 }

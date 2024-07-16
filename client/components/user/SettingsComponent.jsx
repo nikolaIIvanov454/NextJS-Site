@@ -6,6 +6,7 @@ import { Button } from "flowbite-react";
 
 import "@/app/css/avatar-change-style.css";
 
+
 function SettingsComponent() {
   const { data: session, update } = useSession();
 
@@ -25,14 +26,13 @@ function SettingsComponent() {
     reader.onload = () => {
       setImageFile(file);
       setImage(reader.result);
-      console.log(reader.result);
     };
   };
 
   let handleChange = async () => {
     setLoading(true);
 
-    let data = new FormData();
+    const data = new FormData();
     data.set("username", username);
     data.set("email", mail);
     data.set("image", imageFile);
@@ -70,18 +70,16 @@ function SettingsComponent() {
 
         if (response.ok) {
           const data = await response.json();
-          
+
           setImage(data.avatar);
         }
       } catch (error) {
-        console.error('An error occurred while loading avatar:', error);
+        console.error("An error occurred while loading avatar:", error);
       }
     };
 
     fetchAvatar();
   }, []);
-
-  console.log(image);
 
   return (
     <div className="flex justify-center items-center h-5/6">

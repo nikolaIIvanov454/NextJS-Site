@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-
-import Product from "@/app/components/home_components/Product";
+import React, { useState, useEffect } from "react";
 
 import AdminPanelComponent from "@/client/components/admin/AdminPanel";
+import Product from "@/app/components/home_components/Product";
+import { AdminProvider } from "@/libs/contexts/AdminContext";
 
 function page() {
   const [products, setProducts] = useState([]);
@@ -29,8 +29,7 @@ function page() {
 
   return (
     <>
-      <AdminPanelComponent countProducts={products.length} />
-
+    <AdminProvider>
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div className="grid grid-cols-3 gap-4 mb-4">
@@ -45,6 +44,7 @@ function page() {
           </div>
         </div>
       </div>
+      </AdminProvider>
     </>
   );
 }

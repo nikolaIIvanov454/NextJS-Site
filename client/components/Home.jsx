@@ -1,9 +1,5 @@
-"use client";
-
 import React from "react";
 import Products from "@/client/components/home/PoductList";
-
-import withAuth from "@/app/components/ProtectComponent";
 
 function HomeComponent() {
   return (
@@ -13,4 +9,4 @@ function HomeComponent() {
   );
 }
 
-export default withAuth(HomeComponent);
+export default HomeComponent;

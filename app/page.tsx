@@ -4,7 +4,7 @@ function App() {
   return (
     <div>
       <h1>Welcome</h1>
-      <Link href="/home">Go To The Homepage</Link>
+      <Link href="/login">Go To The Login Page</Link>
     </div>
   );
 }

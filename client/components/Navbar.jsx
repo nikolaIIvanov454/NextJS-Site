@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -9,13 +9,20 @@ import { signOut, useSession } from "next-auth/react";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 
 import ThemeSwitcher from "@/client/components/theme/ThemeSwitcher";
+import { AvatarContext } from "@/libs/contexts/AvatarContext";
 
 function NavbarComponent() {
   const location = usePathname();
 
   const { data } = useSession();
 
-  const [image, setImage] = useState(data?.user?.image || null);
+  const { image, setImage } = useContext(AvatarContext);
+
+    // if(!image){
+    //   setImage(data?.user?.image);
+    // }
+
+  // const [image, setImage] = useState(data?.user?.image || null);
 
   useEffect(() => {
     const loadAvatar = async () => {

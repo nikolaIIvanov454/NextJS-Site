@@ -14,7 +14,7 @@ function ProductList() {
         const response = await fetch("/api/get-products");
 
         const data = await response.json();
-        
+
         setProducts(data.products);
       } catch (error) {
         console.error("Error fetching data:", error.message);

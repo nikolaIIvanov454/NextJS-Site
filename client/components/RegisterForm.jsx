@@ -4,14 +4,31 @@ import React, { useState } from "react";
 
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 
-import "@/app/css/styles.css"
+import "@/app/css/styles.css";
 
 function RegisterFormComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [validator, setValidator] = useState({
+    minLength: false,
+    upperLowerCase: false,
+    hasSymbol: false,
+    longPassword: false,
+  });
+  const [error, setError] = useState("");
+
   const registerNewAccount = async (event) => {
     event.preventDefault();
+
+    //complete the validation logic!
+
+    setValidator({
+      minLength: password.length >= 8,
+      upperLowerCase: /[a-z]/.test(password) && /[A-Z]/.test(password),
+      hasSymbol: /[#$&]/.test(password),
+      longPassword: password.length >= 12,
+    });
 
     try {
       const response = await fetch("/api/auth/register", {
@@ -24,7 +41,7 @@ function RegisterFormComponent() {
           email: email,
           password: password,
           role: "standard",
-          avatar: ""
+          avatar: "",
         }),
       });
 
@@ -82,7 +99,10 @@ function RegisterFormComponent() {
             <TextInput id="repeat-password" type="password" required shadow />
           </div>
           <div className="flex items-center gap-2">
-            <Checkbox id="agree" className="border-blue-700 text-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600" />
+            <Checkbox
+              id="agree"
+              className="border-blue-700 text-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600"
+            />
             <Label htmlFor="agree" className="flex">
               I agree with the&nbsp;
               <a

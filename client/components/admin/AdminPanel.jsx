@@ -1,11 +1,29 @@
-"use client";
-
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Link from "next/link";
+import { AdminContext } from "@/libs/contexts/AdminContext";
 
 function AdminPanelComponent({ countProducts, countUsers }) {
+  const { users, setUsers } = useContext(AdminContext);
   const [close, setClose] = useState(false);
+
+  // useEffect(() => {
+  //   const deleteUser = async () => {
+  //     try {
+  //       const response = await fetch("/api/remove-user");
+
+  //       const data = await response.json();
+
+  //       if (response.ok) {
+  //         setUsers(data.users);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error.message);
+  //     }
+  //   };
+
+  //   deleteUser();
+  // }, []);
 
   const handleClose = () => {
     setClose(!close);
@@ -128,13 +146,13 @@ function AdminPanelComponent({ countProducts, countUsers }) {
                   Потребители
                 </span>
                 <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                  {countUsers ? countUsers : 0}
+                  {users.length}
                 </span>
               </Link>
             </li>
             <li>
               <Link
-                href="#"
+                href="/admin/add-product"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <svg

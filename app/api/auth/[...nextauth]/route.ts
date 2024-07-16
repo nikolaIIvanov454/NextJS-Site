@@ -60,6 +60,7 @@ export const authOptions = {
                 email: user.email,
                 name: credentials.username,
                 remember: credentials.remember,
+                role: user.role
               };
             }
           } catch (error) {
@@ -75,6 +76,7 @@ export const authOptions = {
       if (user) {
         token.provider = account?.provider;
         token.maxAge = user.remember ? 24 * 60 * 60 : 0;
+        token.role = user.role;
       }
 
       if (trigger === "update" && session?.user) {
@@ -98,6 +100,10 @@ export const authOptions = {
       return session;
     },
   },
+
+  pages: {
+    signIn: '/login'
+  }
 };
 
 export const handler = NextAuth(authOptions);

@@ -1,5 +1,5 @@
 import connectMongo from "@/libs/mongoConfig";
-import Product from "@/models/ProductShema";
+import Product from "@/models/ProductSchema";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {

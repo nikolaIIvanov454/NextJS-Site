@@ -1,8 +1,7 @@
-"use client";
+"use client"
 
 import React from "react";
 import { useEffect, useState } from "react";
-
 import { Carousel } from "flowbite-react";
 
 import "@/app/css/product.css";
@@ -45,7 +44,7 @@ const ProductPage = ({ productId }) => {
       <div>
         <p>ID: {id}</p>
         <p>Name: {name}</p>
-        <p>Price: {price}</p>
+        <p>Price: {price}$</p>
       </div>
       <div className="flex justify-start h-96 md:m-10 opacity-0 animate-appear transition-opacity duration-500 delay-300">
         <Carousel className="md:w-1/2 sm:w-full" slide={false}>

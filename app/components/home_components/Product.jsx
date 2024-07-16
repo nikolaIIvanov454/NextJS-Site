@@ -47,16 +47,20 @@ function Product({ product, onClickAdminPage }) {
 
   return (
     <>
-      <SuccessPopup
-        openModal={showMessage}
-        text={text}
-        setOpenModal={setShowMessage}
-      />
+      {onClickAdminPage ? (
+        <SuccessPopup
+          openModal={showMessage}
+          text={text}
+          setOpenModal={setShowMessage}
+        />
+      ) : (
+        ""
+      )}
       <div
         className={!onClickAdminPage ? "px-4 mb-8 cursor-pointer" : "px-4 mb-8"}
         onClick={handleProductClick}
       >
-        <div className="border rounded overflow-hidden">
+        <div className="rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
           <img
             className="aspect-square object-cover max-w-lg w-full h-full"
             src={imageUrl[0]}
@@ -64,7 +68,7 @@ function Product({ product, onClickAdminPage }) {
           />
           <div className="p-4">
             <h3 className="font-semibold mb-2">{name}</h3>
-            <p className="text-gray-700">$ {price}</p>
+            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${price}</h5>
           </div>
           <h4 className="text-center">{showMessage}</h4>
           {onClickAdminPage ? (

@@ -7,7 +7,8 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/client/components/SessionProvider";
 import NavbarComponent from "@/client/components/Navbar";
 import FooterComponent from "@/app/components/Footer";
-import { Provider } from "@/app/provider";
+import { ThemesProvider } from "@/app/provider";
+import { AvatarProvider } from "@/libs/contexts/AvatarContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,11 +29,13 @@ export default async function RootLayout({
       <head>{/* Place your head elements here */}</head>
       <body>
         <SessionProvider session={session}>
-          <Provider>
-            <header>
-              <NavbarComponent />
-            </header>
-          </Provider>
+          <ThemesProvider>
+            <AvatarProvider>
+              <header>
+                <NavbarComponent /> 
+              </header>
+            </AvatarProvider>
+          </ThemesProvider>
           {children}
           <footer>
             <FooterComponent />

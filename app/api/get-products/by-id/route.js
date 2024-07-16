@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import connectMongo from '@libs/mongoConfig';
-import Product from '../../../../models/ProductShema';
+import Product from '@/models/ProductSchema';
 
 export async function POST(req){
     const _id = await req.json();

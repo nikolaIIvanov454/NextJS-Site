@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Button, Checkbox, Label, Popover, TextInput } from "flowbite-react";
 
-import "@/app/css/styles.css"
+import "@/app/css/styles.css";
 
 function LoginFormComponent() {
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ function LoginFormComponent() {
       callbackUrl: "/home",
     });
 
-    if (result.error) {
+    if (result?.error) {
       setError(result.error);
     }
   };
@@ -67,6 +67,7 @@ function LoginFormComponent() {
               id="email1"
               type="email"
               className="focus:border-blue-500 focus:ring-blue-500"
+              value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@flowbite.com"
               required
@@ -217,6 +218,7 @@ function LoginFormComponent() {
               <TextInput
                 id="password1"
                 type="password"
+                value={password}
                 onChange={handlePasswordInput}
                 required
               />
