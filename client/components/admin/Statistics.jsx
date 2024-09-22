@@ -6,16 +6,16 @@ import FavouriteChartComponent from "@/client/components/admin/FavouriteChart";
 function Statistics() {
   return (
     <div className="flex justify-center flex-wrap items-center gap-x-48 gap-y-10 p-4 sm:ml-64 ">
-      <div className="w-6/12 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div className="w-6/12 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 dark:bg-gray-800">
         <SalesChartComponent
           x_values={[
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
+            "Понеделник",
+            "Вторник",
+            "Сряда",
+            "Четвъртък",
+            "Петък",
+            "Събота",
+            "Неделя",
           ]}
           y_dataset_objects={{
             label: "Продажби",
@@ -24,16 +24,16 @@ function Statistics() {
           }}
         />
       </div>
-      <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 dark:bg-gray-800">
         <FavouriteChartComponent
           x_values={[
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
+            "Понеделник",
+            "Вторник",
+            "Сряда",
+            "Четвъртък",
+            "Петък",
+            "Събота",
+            "Неделя",
           ]}
           y_dataset_objects={{
             label: "Продажби",

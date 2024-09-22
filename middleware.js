@@ -7,7 +7,7 @@ export default withAuth(
       req.nextUrl.pathname.match("^\/admin\/?(.*)$") &&
       req.nextauth.token.role !== "admin"
     ) {
-      return NextResponse.json({ message: "Не сте ауторизиран!" });
+      return NextResponse.json("ERROR: 401 Не сте ауторизиран!");
     }
   },
   {

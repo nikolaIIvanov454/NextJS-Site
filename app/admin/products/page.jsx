@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-import AdminPanelComponent from "@/client/components/admin/AdminPanel";
 import Product from "@/app/components/home_components/Product";
 import { AdminProvider } from "@/libs/contexts/AdminContext";
 

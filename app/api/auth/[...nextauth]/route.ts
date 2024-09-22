@@ -74,9 +74,12 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
       if (user) {
+        // const loggedUser = await User.findOne({ _id: token.sub });
+
         token.provider = account?.provider;
         token.maxAge = user.remember ? 24 * 60 * 60 : 0;
         token.role = user.role;
+        // token.image = loggedUser.avatar;
       }
 
       if (trigger === "update" && session?.user) {

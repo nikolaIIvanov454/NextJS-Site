@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -17,12 +17,6 @@ function NavbarComponent() {
   const { data } = useSession();
 
   const { image, setImage } = useContext(AvatarContext);
-
-    // if(!image){
-    //   setImage(data?.user?.image);
-    // }
-
-  // const [image, setImage] = useState(data?.user?.image || null);
 
   useEffect(() => {
     const loadAvatar = async () => {

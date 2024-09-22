@@ -1,29 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Link from "next/link";
 import { AdminContext } from "@/libs/contexts/AdminContext";
 
-function AdminPanelComponent({ countProducts, countUsers }) {
+function AdminPanelComponent({ countProducts }) {
   const { users, setUsers } = useContext(AdminContext);
   const [close, setClose] = useState(false);
-
-  // useEffect(() => {
-  //   const deleteUser = async () => {
-  //     try {
-  //       const response = await fetch("/api/remove-user");
-
-  //       const data = await response.json();
-
-  //       if (response.ok) {
-  //         setUsers(data.users);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error.message);
-  //     }
-  //   };
-
-  //   deleteUser();
-  // }, []);
 
   const handleClose = () => {
     setClose(!close);

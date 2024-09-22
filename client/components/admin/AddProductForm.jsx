@@ -22,8 +22,6 @@ function AddProductFormComponent() {
   const minHeight = 120;
   const maxHeight = 550;
 
-  console.log(imageValid)
-
   // const handleFileChange = (element) => {
   //   setImageFile(element.target.files[0]);
 

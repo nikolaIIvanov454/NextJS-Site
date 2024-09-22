@@ -18,3 +18,27 @@
 .group:hover .group-hover\:bg-white\/50 {
   background-color: rgba(26, 87, 219, 0.7); 
 }
+
+.dark .group-hover\:bg-white\/50 {
+  background-color: rgb(29 78 216);
+}
+
+.dark .group:hover .group-hover\:bg-white\/50 {
+  background-color: rgb(29 78 216);
+}
+
+.dark .group{
+  opacity: 0.5;
+}
+
+.group{
+  opacity: 0.2;
+}
+
+.group:hover{
+  animation: fadeIn 250ms ease 100ms forwards;
+}
+
+span[class*="text-cyan"]{
+  color: rgb(37 99 235) !important;
+}

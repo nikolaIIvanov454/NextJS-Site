@@ -60,7 +60,7 @@ function Product({ product, onClickAdminPage }) {
         className={!onClickAdminPage ? "px-4 mb-8 cursor-pointer" : "px-4 mb-8"}
         onClick={handleProductClick}
       >
-        <div className="rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+        <div className="rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden transition-all hover:shadow-lg">
           <img
             className="aspect-square object-cover max-w-lg w-full h-full"
             src={imageUrl[0]}
